@@ -1,0 +1,25 @@
+CC=gcc
+IDIR =./inc
+CFLAGS =-I$(IDIR)
+
+DEPS=main.h
+
+ODIR =./obj
+OBJ=main.o func.o
+#OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ))
+
+LDIR=./src
+
+%.o: ./src/%.c $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+testapp: $(OBJ)
+	$(CC) -o $@ $^ $(CFLAGS)
+
+print-%  : ; @echo $* = $($*)
+
+
+.PHONY: clean
+
+clean:
+	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~
